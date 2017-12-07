@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+
+{% block title %}主页{% endblock %} 
+
+{% block content %} 
+
+{% if art_list %} 
+{% for art in art_list%}
+    <h1>{{ art.title }}</h1>
+    <p>{{ art.content }}</p>
+{% endfor %}
+{% else %}
+    <h1>没有文章，快来添加</h1>
+{% endif %} 
+{% endblock %}

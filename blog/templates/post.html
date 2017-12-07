@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}添加文章{% endblock %}
+
+{% block content %}
+<h1>添加文章</h1>
+<form method="POST">
+    <!--启动CSRF-->
+    {{form.hidden_tag()}}
+    <p>
+        标题：{{form.title()}}
+    </p>
+    <p>
+        内容：{{form.content()}}
+    </p>
+    <p>
+        <button style="float: right" type="submit">提交文章</button>
+    </p>
+</form>
+{% endblock %}
