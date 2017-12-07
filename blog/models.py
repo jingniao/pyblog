@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# from sqlalchemy import Column, Integer, String, DateTime, Text
-# import common
 from .exts import db
-from datetime import datetime
 
 
 class User(db.Model):
@@ -19,5 +16,7 @@ class Article(db.Model):
         db.Integer, primary_key=True, nullable=False, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.utcnow)
-    update_time = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    version = db.Column(db.Integer)
+    update_time = db.Column(db.TIMESTAMP, nullable=False)
+    create_time = db.Column(
+        db.TIMESTAMP, server_default=db.text('NOW()'), nullable=False)

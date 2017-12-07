@@ -6,7 +6,7 @@
 
 {% if art_list %} 
 {% for art in art_list%}
-    <h1>{{ art.title }}</h1>
+    <h1>{{ art.title|title }}</h1>
     <p>{{ art.content }}</p>
 {% endfor %}
 {% else %}
