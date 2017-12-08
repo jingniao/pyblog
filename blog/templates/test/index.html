@@ -1,0 +1,10 @@
+{% extends "base.html" %} 
+
+{% block title %}测试主页{% endblock %} 
+
+{% block content %} 
+<p>
+        <a href="{{ url_for('test.index') }}">测试主页</a>
+        <a href="{{ url_for('test.user') }}">测试用户</a>
+</p>
+{% endblock %}

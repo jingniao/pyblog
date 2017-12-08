@@ -4,11 +4,13 @@ from flask import Flask
 from .exts import db
 from .views.home import home
 from .views.admin import admin
+from .views.test import test
 # from .views import
 
 app = Flask(__name__, instance_relative_config=True)
 app.register_blueprint(home)
 app.register_blueprint(admin, url_prefix='/admin')
+app.register_blueprint(test, url_prefix='/test')
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
 try:

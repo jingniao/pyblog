@@ -6,7 +6,7 @@
 
 {% if art_list %} 
 {% for art in art_list%}
-    <h1>{{ art.title|title }}</h1>
+    <h1><a class="article-title" href="{{ url_for('home.article_detail',aid=art.aid)  }}">{{ art.title|title }}</a></h1>
     <p>{{ art.content }}</p>
 {% endfor %}
 {% else %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}主页{% endblock %} {% block content %}
+<div class="base_login">
+    <h1>用户登录</h1>
+    <div>
+        {% if not session.logged_in %}
+        <form method="POST">
+            <!--启动CSRF-->
+            {{form.hidden_tag()}}
+            <p>
+                用户：{{form.username(size=20,id='name')}} {%for e in form.username.errors%}
+                <span style="color: red">*{{e}}</span>
+                {%endfor%}
+            </p>
+            <p>
+                密码：{{form.password(size=20,id='password')}} {%for e in form.password.errors%}
+                <span style="color: red">*{{e}}</span>
+                {%endfor%}
+            </p>
+            <p>
+                <button style="float: right" type="submit">登录</button>
+            </p>
+        </form>
+        {% else %}
+        <p>
+            已经登陆，当前登陆用户为：{{ session.username }}
+        </p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

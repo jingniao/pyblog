@@ -20,3 +20,12 @@ class Article(db.Model):
     update_time = db.Column(db.TIMESTAMP, nullable=False)
     create_time = db.Column(
         db.TIMESTAMP, server_default=db.text('NOW()'), nullable=False)
+
+
+class Comment(db.Model):
+    cid = db.Column(
+        db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    uid = db.Column(db.Integer)
+    aid = db.Column(db.Integer)
+    content = db.Column(db.Text, nullable=False)
+    create_time = db.Column(db.TIMESTAMP, nullable=False)
