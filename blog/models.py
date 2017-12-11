@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 from .exts import db
+import time
+
+
+def nowtime():
+    return int(time.time())
 
 
 class User(db.Model):
@@ -17,9 +22,8 @@ class Article(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     version = db.Column(db.Integer)
-    update_time = db.Column(db.TIMESTAMP, nullable=False)
-    create_time = db.Column(
-        db.TIMESTAMP, server_default=db.text('NOW()'), nullable=False)
+    update_time = db.Column(db.TIMESTAMP, onupdate=nowtime)
+    create_time = db.Column(db.TIMESTAMP, nullable=False)
 
 
 class Comment(db.Model):
