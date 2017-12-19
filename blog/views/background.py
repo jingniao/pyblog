@@ -6,10 +6,10 @@ from .. import db
 from ..forms import BaseArticle, BaseLogin
 from ..models import Article, User
 
-admin = Blueprint('admin', __name__)
+background = Blueprint('background', __name__)
 
 
-@admin.route('/post_article/', methods=['GET', 'POST'])
+@background.route('/post_article/', methods=['GET', 'POST'])
 def post_article():
     form = BaseArticle()
     if form.validate_on_submit():
@@ -22,7 +22,7 @@ def post_article():
         return render_template('post.html', form=form)
 
 
-@admin.route('/login/', methods=['GET', 'POST'])
+@background.route('/login/', methods=['GET', 'POST'])
 def login():
     form = BaseLogin()
     if not form.validate_on_submit():
@@ -41,7 +41,7 @@ def login():
             return redirect(url_for('home.index'))
 
 
-@admin.route('/logout/')
+@background.route('/logout/')
 def logout():
     logout_user()
     flash(u'已经登出')
