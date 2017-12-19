@@ -13,8 +13,8 @@
 <body>
     <a href="{{ url_for('home.index') }}">主页</a>
     <a href="{{ url_for('admin.post_article') }}">添加文章</a>
-    {% if session.logged_in %}
-    当前登陆用户： {{ session.uid }}
+    {% if current_user.is_authenticated %}
+    当前登陆用户： {{ current_user.username }}
     <a href="{{ url_for('admin.logout') }}">退出</a>
     {% else %}
     <a href="{{ url_for('admin.login') }}">登陆</a>

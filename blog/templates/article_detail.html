@@ -7,9 +7,19 @@
 {% if comment_list %}
 <h2>评论：</h2>
 
-{% for comment in comment_list %}
-<p>内容：{{ comment.content }},评论时间：{{ comment.create_time }},评论人：{{comment.uid}}</p>
+{% for comment in comment_list.items %}
+<p>内容：{{ comment.content }},评论时间：{{ comment.create_time }},评论人：{{comment.user.username}}</p>
 {% endfor %} {% endif %}
+
+{% if comment_list.has_prev %}
+<a href="{{ url_for('home.article_detail', aid =article.aid, page = comment_list.prev_num) }}"> 上一页</a>
+{% else %} 已经是首页{% endif %} |
+{% if comment_list.has_next %}
+<a href="{{ url_for('home.article_detail',aid =article.aid,  page = comment_list.next_num) }}">下一页 ></a>
+{% else %} 已经是尾页 {% endif %}
+
+{% if current_user.is_authenticated %}
+
 <form method="POST" action="{{ url_for('home.post_comment') }}">
     <!--启动CSRF-->
     {{form.csrf_token()}}
@@ -22,6 +32,10 @@
         <button style="float: right" type="submit">添加评论</button>
     </p>
 </form>
+{% else %}
+<p>请登陆后评论</p>
+
+{% endif %}
 
 
 {% endblock %}

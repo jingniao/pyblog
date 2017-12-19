@@ -16,3 +16,4 @@ SQLAlchemy==1.1.15
 Werkzeug==0.13
 WTForms==2.1
 pymysql==0.7.11
+gunicorn==19.7.1

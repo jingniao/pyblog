@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, flash, redirect, url_for, session
-from ..models import Article, User
-from ..forms import BaseArticle, BaseLogin
+from flask import Blueprint, flash, redirect, render_template, url_for
+from flask_login import login_user, logout_user
+
 from .. import db
+from ..forms import BaseArticle, BaseLogin
+from ..models import Article, User
 
 admin = Blueprint('admin', __name__)
 
@@ -34,16 +36,13 @@ def login():
             form.password.errors.append(u'密码错误')
             return render_template('login.html', form=form)
         else:
-            session['uid'] = user_one.uid
-            session['logged_in'] = True
+            login_user(user_one)
             flash(u'你已经登陆')
             return redirect(url_for('home.index'))
 
 
 @admin.route('/logout/')
 def logout():
-    if not session['logged_in']:
-        flash(u'你没有登陆，不需要登出')
-    session['logged_in'] = False
+    logout_user()
     flash(u'已经登出')
     return redirect(url_for('home.index'))

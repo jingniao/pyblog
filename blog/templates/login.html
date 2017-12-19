@@ -2,7 +2,7 @@
 <div class="base_login">
     <h1>用户登录</h1>
     <div>
-        {% if not session.logged_in %}
+        {% if not current_user.is_authenticated %}
         <form method="POST">
             <!--启动CSRF-->
             {{form.hidden_tag()}}
@@ -22,7 +22,7 @@
         </form>
         {% else %}
         <p>
-            已经登陆，当前登陆用户为：{{ session.username }}
+            已经登陆，当前登陆用户为：{{ current_user.username }}
         </p>
         {% endif %}
 

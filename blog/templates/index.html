@@ -5,10 +5,18 @@
 {% block content %} 
 
 {% if art_list %} 
-{% for art in art_list%}
+{% for art in art_list.items%}
     <h1><a class="article-title" href="{{ url_for('home.article_detail',aid=art.aid)  }}">{{ art.title|title }}</a></h1>
     <p>{{ art.content }}</p>
 {% endfor %}
+
+{% if art_list.has_prev %}
+<a href="{{ url_for('home.index', page = art_list.prev_num) }}"> 上一页</a>
+{% else %} 已经是首页{% endif %} |
+{% if art_list.has_next %}
+<a href="{{ url_for('home.index', page = art_list.next_num) }}">下一页 ></a>
+{% else %} 已经是尾页 {% endif %}
+
 {% else %}
     <h1>没有文章，快来添加</h1>
 {% endif %} 
