@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
         primaryjoin='User.uid==Comment.user_id')
 
     def get_id(self):
-        return self.uid
+        return unicode(self.uid)
 
     def __repr__(self):
         return '<User {0}>'.format(self.username)

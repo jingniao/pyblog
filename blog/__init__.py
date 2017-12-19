@@ -16,11 +16,17 @@ app.register_blueprint(test, url_prefix='/test')
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "admin.login"
+# 未登陆会闪现下面一条
+login_manager.login_message = u'您未登陆，请先登陆后再操作'
+# 如果需要自定义未登录返回，需要将处理函数用 LoginManager.unauthorized_handler装饰
 
 
 @login_manager.user_loader
 def load_user(userid):
-    return User.query.filter(User.uid == userid).first()
+    try:
+        return User.query.filter(User.uid == int(userid)).first()
+    except ValueError:
+        return None
 
 
 app.config.from_object('config')
