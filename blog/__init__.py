@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask_login import LoginManager
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 from .exts import db
-from .models import User
+from .models import User, Article, Comment
 from .views.background import background
 from .views.home import home
 from .views.test import test
@@ -18,9 +20,9 @@ login_manager.init_app(app)
 login_manager.login_view = "background.login"
 # 未登陆会闪现下面一条
 login_manager.login_message = u'您未登陆，请先登陆后再操作'
+
+
 # 如果需要自定义未登录返回，需要将处理函数用 LoginManager.unauthorized_handler装饰
-
-
 @login_manager.user_loader
 def load_user(userid):
     try:
@@ -28,6 +30,11 @@ def load_user(userid):
     except ValueError:
         return None
 
+
+admin = Admin(app, name=u'flask-Admin管理')
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Article, db.session))
+admin.add_view(ModelView(Comment, db.session))
 
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
