@@ -24,6 +24,9 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return unicode(self.uid)
 
+    def to_json(self):
+        return {'uid': self.uid, 'username': self.username}
+
     def __repr__(self):
         return '<User {0}>'.format(self.username)
 
@@ -43,6 +46,19 @@ class Article(db.Model):
     update_time = db.Column(db.TIMESTAMP, onupdate=nowtime)
     create_time = db.Column(db.TIMESTAMP, nullable=False)
 
+    def to_json(self, ret_comments=False):
+        ret = {
+            'aid': self.aid,
+            'username': self.user.username,
+            'title': self.title,
+            'content': self.content,
+            # 'comments': [item.to_json() for item in self.comments.all()],
+            'create_time': str(self.create_time)
+        }
+        if ret_comments:
+            ret['comments'] = [item.to_json() for item in self.comments.all()]
+        return ret
+
 
 class Comment(db.Model):
     cid = db.Column(
@@ -51,3 +67,12 @@ class Comment(db.Model):
     article_id = db.Column(db.Integer, db.ForeignKey('article.aid'))
     content = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.TIMESTAMP, nullable=False)
+
+    def to_json(self):
+        return {
+            'cid': self.cid,
+            'user': self.user.username,
+            'aid': self.article_id,
+            'content': self.content,
+            'create_time': str(self.create_time)
+        }

@@ -12,7 +12,7 @@
 
 <body>
     <a href="{{ url_for('home.index') }}">主页</a>
-    <a href="{{ url_for('background.post_article') }}">添加文章</a>
+    <a href="{{ url_for('home.post_article') }}">添加文章</a>
     {% if current_user.is_authenticated %}
     当前登陆用户： {{ current_user.username }}
     <a href="{{ url_for('background.logout') }}">退出</a>

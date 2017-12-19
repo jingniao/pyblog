@@ -2,24 +2,10 @@
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_user, logout_user
 
-from .. import db
-from ..forms import BaseArticle, BaseLogin
-from ..models import Article, User
+from ..forms import BaseLogin
+from ..models import User
 
 background = Blueprint('background', __name__)
-
-
-@background.route('/post_article/', methods=['GET', 'POST'])
-def post_article():
-    form = BaseArticle()
-    if form.validate_on_submit():
-        article = Article(title=form.title.data, content=form.content.data)
-        db.session.add(article)
-        db.session.commit()
-        flash(u'文章 <{0}> 添加'.format(form.title.data))
-        return redirect(url_for('home.index'))
-    else:
-        return render_template('post.html', form=form)
 
 
 @background.route('/login/', methods=['GET', 'POST'])
