@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  db:
+    image: "mysql"
+    expose:
+      - "3306"
+    command: ['--character-set-server=utf8mb4','--collation-server=utf8mb4_unicode_ci']
+    environment:
+      MYSQL_DATABASE: "blog"
+      MYSQL_PASSWORD: "guang"
+      MYSQL_USER: "guang"
+      MYSQL_ROOT_PASSWORD: "guang"
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_DATABASE: "blog"
+      MYSQL_USER: "guang"
+      MYSQL_PASSWORD: "guang"
+  
+      
+
+    

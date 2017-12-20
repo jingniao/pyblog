@@ -18,3 +18,6 @@ WTForms==2.1
 pymysql==0.7.11
 gunicorn==19.7.1
 flask-admin==1.5.0
+flask-login==0.4.1
+flask_restful==0.3.6
+sh==1.12.14

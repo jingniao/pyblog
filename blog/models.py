@@ -43,8 +43,8 @@ class Article(db.Model):
         lazy='dynamic',
         primaryjoin='Article.aid==Comment.article_id')
     version = db.Column(db.Integer)
-    update_time = db.Column(db.TIMESTAMP, onupdate=nowtime)
     create_time = db.Column(db.TIMESTAMP, nullable=False)
+    update_time = db.Column(db.TIMESTAMP, onupdate=nowtime)
 
     def to_json(self, ret_comments=False):
         ret = {
