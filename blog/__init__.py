@@ -37,8 +37,8 @@ admin.add_view(ModelView(Article, db.session))
 admin.add_view(ModelView(Comment, db.session))
 
 app.config.from_object('config')
-app.config.from_pyfile('config.py')
 try:
+    app.config.from_pyfile('config.py')
     app.config.from_envvar('APP_CONFIG_FILE')
 except Exception:
     pass

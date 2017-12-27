@@ -8,19 +8,20 @@ import pymysql
 
 from sh import gunicorn, python
 
-MYSQL_DATABASE = os.environ['MYSQL_DATABASE']
-MYSQL_USER = os.environ['MYSQL_USER']
-MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
+DB_DATABASE = os.environ['DB_DATABASE']
+DB_USER = os.environ['DB_USER']
+DB_HOST = os.environ['DB_HOST']
+DB_PASSWORD = os.environ['DB_PASSWORD']
 
 
 def db_connect():
     for i in range(10):
         try:
             conn = pymysql.connect(
-                host='db',
-                user=MYSQL_USER,
-                passwd=MYSQL_PASSWORD,
-                db=MYSQL_DATABASE,
+                host=DB_HOST,
+                user=DB_USER,
+                passwd=DB_PASSWORD,
+                db=DB_DATABASE,
                 charset='utf8mb4')
             with conn.cursor() as cursor:
                 sql = "show variables like '%char%';"
@@ -52,10 +53,10 @@ def db_init():
             try:
                 # 如果数据库中残留之前的alembic_version跟init之后的记录id不一致，会导致这步错误
                 conn = pymysql.connect(
-                    host='db',
-                    user=MYSQL_USER,
-                    passwd=MYSQL_PASSWORD,
-                    db=MYSQL_DATABASE,
+                    host=DB_HOST,
+                    user=DB_USER,
+                    passwd=DB_PASSWORD,
+                    db=DB_DATABASE,
                     charset='utf8mb4')
                 with conn.cursor() as cursor:
                     sql = "drop table if exists alembic_version;"

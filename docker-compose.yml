@@ -18,9 +18,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      MYSQL_DATABASE: "blog"
-      MYSQL_USER: "guang"
-      MYSQL_PASSWORD: "guang"
+      DB_HOST: "db"
+      DB_DATABASE: "blog"
+      DB_USER: "guang"
+      DB_PASSWORD: "guang"
+      DB_DRIVER: "mysql+pymysql"
   
       
 
