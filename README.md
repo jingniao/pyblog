@@ -3,7 +3,7 @@
 ```shell
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo
-## 更改使用国内源，这里手动
+sed -i "s#download.docker.com#mirrors.ustc.edu.cn/docker-ce#g" /etc/yum.repos.d/docker-ce.repo
 yum makecache fast
 yum install docker-ce -y
 
